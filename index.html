@@ -265,7 +265,10 @@ input[type=range]{width:100%;accent-color:var(--pink);height:24px}
 .P .pill{background:var(--pbg,var(--ink));color:var(--ptc,#fff);font-size:12px;padding:5px 11px 4px;border-radius:99px;white-space:nowrap}
 .P .msg{text-align:center;font:19px/1.2 'Pacifico','MsgKo','Gowun Dodum',cursive;white-space:pre;color:var(--mtc,var(--mtcT,#fff));--o:var(--oc,var(--ocT,var(--pink)));
   --w:var(--ow,2px);text-shadow:var(--w) var(--w) 0 var(--o),calc(var(--w)*-1) calc(var(--w)*-1) 0 var(--o),var(--w) calc(var(--w)*-1) 0 var(--o),calc(var(--w)*-1) var(--w) 0 var(--o),0 var(--w) 0 var(--o),0 calc(var(--w)*-1) 0 var(--o),var(--w) 0 0 var(--o),calc(var(--w)*-1) 0 0 var(--o),3px 5px 0 var(--ink)}
-.P .w{width:122px;background:var(--win);border:2px solid var(--ink);border-radius:7px;box-shadow:4px 5px 0 var(--ink);overflow:hidden;line-height:1.2}
+/* 그림자는 CSS box-shadow 대신 진짜 요소(.shd)로 — 저장 프로그램이 회전된 요소의 box-shadow를 어긋나게 그려서 창 테두리가 깨져 보였음 */
+.P .shd{position:absolute;left:0;top:0;right:0;bottom:0;background:var(--ink);transform:translate(4px,5px);border-radius:7px}
+.P .w{width:122px;line-height:1.2}
+.P .w>.fr{position:relative;background:var(--win);border:2px solid var(--ink);border-radius:7px;overflow:hidden}
 .P .w .t{display:flex;justify-content:space-between;align-items:center;padding:3px 7px;background:var(--tb);color:#fff;font:400 10px var(--disp)}
 .P .w .t i{display:flex;gap:3px}.P .w .t i s{display:block;width:7px;height:7px;background:#fff;border-radius:2px}
 .P .w .b{padding:7px 8px 8px}
@@ -275,12 +278,16 @@ input[type=range]{width:100%;accent-color:var(--pink);height:24px}
 .P .w li{display:flex;align-items:center;gap:5px;font-size:11.5px;line-height:14px;padding:3px 0;word-break:keep-all;overflow-wrap:anywhere}
 .P .w li.sh{background:var(--acc);margin:0 -8px;padding:0 8px;color:var(--acct)}
 .P .w .tst{margin-top:5px;display:inline-block;font-size:10.5px;border:1.5px solid var(--ink);border-radius:99px;padding:0 7px;line-height:16px}
-.P .sc{width:108px;height:108px;border-radius:50%;background:var(--acc);border:2px solid var(--ink);box-shadow:4px 5px 0 var(--ink);
+.P .sc{width:108px;height:108px}
+.P .sc .shd{border-radius:50%}
+.P .sc>.fr{position:absolute;left:0;top:0;right:0;bottom:0;border-radius:50%;background:var(--acc);border:2px solid var(--ink);
   display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--acct)}
 .P .sc b{font:400 34px/1 var(--fh)}
 .P .sc span{font-size:11px;margin-top:4px}
-.P .sc::before{content:"";position:absolute;inset:6px;border-radius:50%;border:1.5px dashed var(--acct);opacity:.55}
-.P .rw{width:122px;background:var(--rbg,#fff);border:2px solid var(--ink);border-radius:6px;box-shadow:4px 5px 0 var(--ink);color:var(--rtc,var(--ink));font-size:11.5px;line-height:1.4}
+.P .sc>.fr::before{content:"";position:absolute;inset:6px;border-radius:50%;border:1.5px dashed var(--acct);opacity:.55}
+.P .rw{width:122px;color:var(--rtc,var(--ink));font-size:11.5px;line-height:1.4}
+.P .rw .shd{border-radius:6px}
+.P .rw>.fr{position:relative;background:var(--rbg,#fff);border:2px solid var(--ink);border-radius:6px;overflow:hidden}
 .P .rw .t{background:var(--ink);color:#fff;font:400 10px var(--disp);padding:3px 7px;display:flex;justify-content:space-between;line-height:1.2}
 .P .rw p{margin:0;padding:7px 8px 4px;word-break:keep-all}
 .P .rw em{display:block;width:40px;margin:2px auto 7px;text-align:center;font-style:normal;font-size:10px;border:1.5px solid var(--ink);border-radius:4px;background:var(--bubble);line-height:1.5;color:var(--ink)}
@@ -292,7 +299,7 @@ input[type=range]{width:100%;accent-color:var(--pink);height:24px}
 .P .ut.pop{font-size:26px;font-family:'Pacifico','MsgKo',var(--fb);color:var(--tc,#fff);--o:var(--oc,var(--pink));--w:var(--ow,2px);text-shadow:var(--w) var(--w) 0 var(--o),calc(var(--w)*-1) calc(var(--w)*-1) 0 var(--o),var(--w) calc(var(--w)*-1) 0 var(--o),calc(var(--w)*-1) var(--w) 0 var(--o),0 var(--w) 0 var(--o),0 calc(var(--w)*-1) 0 var(--o),var(--w) 0 0 var(--o),calc(var(--w)*-1) 0 0 var(--o),3px 5px 0 var(--ink)}
 .P .ut.chr{font-size:30px;color:var(--tc,#fff);text-shadow:0 2px 0 #d9deea,0 4px 0 #9aa4bd,3px 6px 0 var(--hs),3px 8px 0 var(--ink)}
 .P .ut.ink{font-size:22px;color:var(--tc,var(--ink))}
-.P .ut.lim{font-size:15px;color:var(--tc,var(--ink));background:var(--bx,var(--lime));border:2px solid var(--ink);border-radius:99px;padding:5px 12px 4px;box-shadow:3px 3px 0 var(--ink)}
+.P .ut.lim{font-size:15px;color:var(--tc,var(--ink));background:var(--bx,var(--lime));border:2px solid var(--ink);border-width:2px 4px 5px 2px;border-radius:99px;padding:5px 12px 4px}
 .P .ut.tag{font-size:14px;color:var(--tc,#fff);background:var(--bx,var(--ink));padding:5px 10px 4px;border-radius:4px}
 #sel{position:absolute;z-index:9999;border:1.5px dashed var(--ink);outline:1.5px dashed #fff;outline-offset:-3px;pointer-events:none;display:none;transform-origin:50% 50%}
 #sel i{position:absolute;width:26px;height:26px;border-radius:50%;background:var(--ink);border:2px solid #fff;pointer-events:auto;touch-action:none;display:flex;align-items:center;justify-content:center;color:#fff;font:700 15px/1 sans-serif;font-style:normal;transform:scale(var(--hk,1))}
@@ -1088,8 +1095,8 @@ const FMT={
  S:{name:"정사각 1:1",W:400,H:400,ld:374,
    L:{hd:[14,6,-4],pill:[16,80,-2],msg:[250,22,7],stA:[156,74,-4,.9],stB:[202,68,4,.9],wA:[8,128,-3],wB:[272,140,3],sc:[146,236,-8],rw:[10,272,2],sign:[282,304,-3],ld:[12,356],ldt:[13,380],pfA:[92,98,-6],pfB:[336,108,6]},
    slots:[[332,70,46],[230,58,36],[6,240,42],[112,250,34],[330,248,42],[284,266,32],[174,40,30],[364,212,28]],spk:[[132,96,12],[380,118,10],[18,344,12],[262,232,11],[150,224,10]]},
- L:{name:"가로 3:2",W:480,H:320,ld:170,
-   L:{hd:[14,4,-4],pill:[16,78,-2],msg:[334,12,7],stA:[202,10,-4,.8],stB:[244,6,4,.8],wA:[14,118,-3],wB:[346,62,3],sc:[186,170,-8,.92],rw:[348,206,2],sign:[22,268,-3],ld:[112,290],ldt:[290,294],pfA:[100,96,-6,.9],pfB:[300,40,6,.9]},
+ L:{name:"가로 3:2",W:480,H:320,ld:146,
+   L:{hd:[14,4,-4],pill:[16,78,-2],msg:[334,12,7],stA:[202,10,-4,.8],stB:[244,6,4,.8],wA:[14,118,-3],wB:[346,62,3],sc:[186,170,-8,.92],rw:[348,206,2],sign:[22,268,-3],ld:[112,292],ldt:[266,296],pfA:[100,96,-6,.9],pfB:[300,40,6,.9]},
    slots:[[236,6,40],[148,52,36],[296,112,34],[146,148,32],[18,280,0],[300,248,30],[150,250,30],[440,290,26]],spk:[[200,70,12],[316,208,10],[132,120,12],[170,104,10],[452,296,11]]},
  V:{name:"스토리 9:16",W:360,H:640,ld:334,
    L:{hd:[12,44,-4,1.15],pill:[14,134,-2],msg:[206,62,7],stA:[138,196,-4,1.15],stB:[184,190,4,1.15],wA:[6,190,-3],wB:[234,218,3],sc:[124,440,-8],rw:[8,452,2],sign:[236,512,-3],ld:[12,588],ldt:[13,612],pfA:[0,0],pfB:[0,0]},
@@ -1112,12 +1119,12 @@ function add(html,o){
   if(o.edit)d.edit=1;if(o.key)d.key=o.key;if(o.img)d.img=o.img;
   P.insertBefore(el,$("sel"));apply(el);return el}
 function winBox(p,i){
-  return `<div class="t"><span>${i?"YOU":"ME"}.txt</span><i><s></s><s></s></i></div><div class="b">
+  return `<div class="shd"></div><div class="fr"><div class="t"><span>${i?"YOU":"ME"}.txt</span><i><s></s><s></s></i></div><div class="b">
    <div class="nm"><span>${esc(p.n)}</span></div><ul>${p.mode=="any"?`<li class="sh">${iconArt("smiley",18)}아무거나 다 좋아</li>`
      :p.mode=="none"?`<li>${iconArt("mheart",18)}과자보다 너</li>`
      :p.k.length?p.k.map(k=>`<li class="${S.sh.includes(k[0])?"sh":""}">${iconArt(iconFor(k),18)}${esc(k[1])}</li>`).join("")
      :`<li>${iconArt("mthink",18)}최애 과자 찾는 중…</li>`}</ul>
-   ${p.v?`<span class="tst">${p.v} 파</span>`:""}</div>`;
+   ${p.v?`<span class="tst">${esc(p.v)} 파</span>`:""}</div></div>`;
 }
 const imgHTML=(id,w)=>`<img data-im src="${IMG.get(id).out}" style="width:${w}px" alt="">`;
 /* 처음 배치 전에 쓰는 폰트를 먼저 불러온다 — 폰트가 바뀌며 폭이 늘어 화면 밖으로 나가는 것 방지 */
@@ -1136,8 +1143,8 @@ async function build(){
   add(stickArt(b.f,{w:38,h:285,seed:12}),{cls:"stk",key:"stB",z:3});
   add(winBox(a,0),{cls:"w"+(a.ph?" haspf":""),key:"wA",z:5});
   add(winBox(b,1),{cls:"w"+(b.ph?" haspf":""),key:"wB",z:5});
-  add(`<b class="ed">${S.sc}%</b><span>pair match</span>`,{cls:"sc",key:"sc",z:8,edit:true});
-  add(`<div class="t"><span>result.exe</span><span>×</span></div><p class="ed">${esc(S.tt)}</p><em>OK</em>`,{cls:"rw",key:"rw",z:7,edit:true});
+  add(`<div class="shd"></div><div class="fr"><b class="ed">${S.sc}%</b><span>pair match</span></div>`,{cls:"sc",key:"sc",z:8,edit:true});
+  add(`<div class="shd"></div><div class="fr"><div class="t"><span>result.exe</span><span>×</span></div><p class="ed">${esc(S.tt)}</p><em>OK</em></div>`,{cls:"rw",key:"rw",z:7,edit:true});
   add(`<span class="ed">PRETTY PAIR AVE.</span>`,{cls:"sign",key:"sign",z:7,edit:true});
   add(`<i style="width:${S.sc}%"></i>`,{cls:"ld",key:"ld",z:6});
   add(`<span class="ed">LOADING ${S.sc}%</span>`,{cls:"ldt",key:"ldt",z:6,edit:true});
@@ -1207,8 +1214,10 @@ const H={st:[],i:-1};
 const snap=()=>JSON.stringify({h:P.innerHTML,th:S.th,fmt:S.fmt,fh:S.fh,fb:S.fb});
 function commit(){const s=snap();if(H.st[H.i]===s)return;saveSoon();H.st=H.st.slice(0,H.i+1);H.st.push(s);if(H.st.length>60)H.st.shift();H.i=H.st.length-1;updUndo()}
 function updUndo(){$("undo").disabled=H.i<=0;$("redo").disabled=H.i>=H.st.length-1}
+function migrate(){P.querySelectorAll(".it.w,.it.rw,.it.sc").forEach(el=>{if(el.querySelector(":scope>.fr"))return;
+  const fr=document.createElement("div");fr.className="fr";while(el.firstChild)fr.appendChild(el.firstChild);const sh=document.createElement("div");sh.className="shd";el.append(sh,fr)})}
 function restore(i){if(i<0||i>=H.st.length)return;H.i=i;const o=JSON.parse(H.st[i]);
-  Object.assign(S,{th:o.th,fmt:o.fmt,fh:o.fh,fb:o.fb});P.innerHTML=o.h;cur=null;setSize();applyTheme();applyFonts();select(null);updUndo();refreshPane()}
+  Object.assign(S,{th:o.th,fmt:o.fmt,fh:o.fh,fb:o.fb});P.innerHTML=o.h;migrate();cur=null;setSize();applyTheme();applyFonts();select(null);updUndo();refreshPane()}
 $("undo").onclick=()=>restore(H.i-1);$("redo").onclick=()=>restore(H.i+1);
 
 /* ---------- 선택 · 이동 · 핀치 ---------- */
