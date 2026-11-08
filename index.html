@@ -93,6 +93,9 @@ svg{flex:none}
 .txt::placeholder{color:#b597b4}
 .seg{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
 .vb{grid-template-columns:repeat(4,1fr)}
+.flg{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:6px}
+.flg .chip{padding:6px 2px 5px;font-size:12px;gap:2px}
+.flg .chip svg{height:40px;width:auto}
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
 .chip{border:2px solid var(--ink);border-radius:8px;background:#fff;padding:8px 4px 6px;font-size:12px;display:flex;flex-direction:column;align-items:center;gap:3px;line-height:1.15;word-break:keep-all;text-align:center;transition:transform .12s}
 .seg .chip{flex-direction:row;justify-content:center;gap:6px;font-size:14px;padding:7px 4px}
@@ -266,9 +269,10 @@ input[type=range]{width:100%;accent-color:var(--pink);height:24px}
 .P .w .t{display:flex;justify-content:space-between;align-items:center;padding:3px 7px;background:var(--tb);color:#fff;font:400 10px var(--disp)}
 .P .w .t i{display:flex;gap:3px}.P .w .t i s{display:block;width:7px;height:7px;background:#fff;border-radius:2px}
 .P .w .b{padding:7px 8px 8px}
-.P .w .nm{font:400 17px/1.15 var(--fh);margin-bottom:5px;word-break:break-all}
+.P .w.haspf .nm{padding-right:42px}
+.P .w .nm{font:400 17px/1.15 var(--fh);margin-bottom:5px;white-space:nowrap;word-break:keep-all;overflow-wrap:anywhere}
 .P .w ul{list-style:none;margin:0;padding:0}
-.P .w li{display:flex;align-items:center;gap:5px;font-size:11.5px;line-height:20px;white-space:nowrap;overflow:hidden}
+.P .w li{display:flex;align-items:center;gap:5px;font-size:11.5px;line-height:14px;padding:3px 0;word-break:keep-all;overflow-wrap:anywhere}
 .P .w li.sh{background:var(--acc);margin:0 -8px;padding:0 8px;color:var(--acct)}
 .P .w .tst{margin-top:5px;display:inline-block;font-size:10.5px;border:1.5px solid var(--ink);border-radius:99px;padding:0 7px;line-height:16px}
 .P .sc{width:108px;height:108px;border-radius:50%;background:var(--acc);border:2px solid var(--ink);box-shadow:4px 5px 0 var(--ink);
@@ -282,7 +286,7 @@ input[type=range]{width:100%;accent-color:var(--pink);height:24px}
 .P .rw em{display:block;width:40px;margin:2px auto 7px;text-align:center;font-style:normal;font-size:10px;border:1.5px solid var(--ink);border-radius:4px;background:var(--bubble);line-height:1.5;color:var(--ink)}
 .P .sign{background:var(--sbg,#fff);color:var(--stc,var(--ink));font:400 10.5px var(--fh);padding:5px 9px 4px;border:2px solid var(--ink);border-radius:5px;white-space:nowrap}
 .P .ld{height:20px;background:#fff;border:2px solid var(--ink);padding:2px}
-.P .ld i{display:block;height:100%;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='12'%3E%3Crect x='8' width='3' height='12' fill='%23fff' fill-opacity='.65'/%3E%3C/svg%3E") repeat-x 0 0/11px 100%,var(--ldc,var(--pink))}
+.P .ld i{display:block;height:100%;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='12'%3E%3Crect x='8' width='3' height='12' fill='%23fff' fill-opacity='.65'/%3E%3C/svg%3E") repeat-x 0 0/11px 100%,var(--ldc,var(--ldcT,var(--pink)))}
 .P .ldt{font:400 12px var(--fh);color:var(--ltc,var(--ink));letter-spacing:.06em;white-space:nowrap}
 .P .ut{white-space:pre;font-family:var(--fb);line-height:1.1}
 .P .ut.pop{font-size:26px;font-family:'Pacifico','MsgKo',var(--fb);color:var(--tc,#fff);--o:var(--oc,var(--pink));--w:var(--ow,2px);text-shadow:var(--w) var(--w) 0 var(--o),calc(var(--w)*-1) calc(var(--w)*-1) 0 var(--o),var(--w) calc(var(--w)*-1) 0 var(--o),calc(var(--w)*-1) var(--w) 0 var(--o),0 var(--w) 0 var(--o),0 calc(var(--w)*-1) 0 var(--o),var(--w) 0 0 var(--o),calc(var(--w)*-1) 0 0 var(--o),3px 5px 0 var(--ink)}
@@ -469,41 +473,64 @@ function starPts(cx,cy,R,r,n=5,rot=-90){const p=[];for(let i=0;i<n*2;i++){const 
 
 /* ---- 스틱 과자 (초코/딸기/화이트, 아몬드) ---- */
 const COAT={
+ matcha:[[0,"#3f6312"],[.2,"#6f9e2e"],[.42,"#b2d872"],[.52,"#c9e894"],[.62,"#94c454"],[.85,"#5a8a20"],[1,"#33520e"]],
+ mint:[[0,"#2f8f7a"],[.2,"#5fcab4"],[.42,"#b8f2e4"],[.52,"#d6fff5"],[.62,"#94e6d4"],[.85,"#4cb8a0"],[1,"#24705f"]],
+ banana:[[0,"#b38700"],[.2,"#f2c81f"],[.42,"#fff0a0"],[.52,"#fff8cc"],[.62,"#ffe06a"],[.85,"#e0b000"],[1,"#9a7400"]],
+ blueberry:[[0,"#33267a"],[.2,"#6a58cc"],[.42,"#b2a6f2"],[.52,"#cdc4ff"],[.62,"#9284e8"],[.85,"#5544b8"],[1,"#2a1f66"]],
+ caramel:[[0,"#6b360a"],[.2,"#b06a20"],[.42,"#e6b066"],[.52,"#f2c88a"],[.62,"#d49444"],[.85,"#9c5a16"],[1,"#5a2c06"]],
+ strawchoco:[[0,"#1d0a03"],[.2,"#4b2212"],[.42,"#8e4c2d"],[.52,"#a35d3b"],[.62,"#6b351d"],[.85,"#33160a"],[1,"#140602"]],
  ink:[[0,"#000"],[.25,"#222"],[.45,"#555"],[.55,"#3a3a3a"],[.8,"#111"],[1,"#000"]],
  choco:[[0,"#1d0a03"],[.2,"#4b2212"],[.42,"#8e4c2d"],[.52,"#a35d3b"],[.62,"#6b351d"],[.85,"#33160a"],[1,"#140602"]],
  berry:[[0,"#a92a58"],[.2,"#e6578e"],[.42,"#ffb0cd"],[.52,"#ffd2e3"],[.62,"#ff8db7"],[.85,"#d9447d"],[1,"#8f1f49"]],
  white:[[0,"#b5a89e"],[.2,"#e4dbd3"],[.42,"#fbf8f5"],[.52,"#ffffff"],[.62,"#f1ebe6"],[.85,"#d0c5bc"],[1,"#9e9187"]]};
-const SPR={ink:["#ffffff","#ffffff","#bdbdbd"],choco:["#ff8fc2","#d4ff3a","#ffffff","#7fd8ff","#ffe066"],berry:["#ffffff","#ffffff","#ff2e93","#ffe3ef"],white:["#ff2e93","#b8e620","#ff9ccb","#6fcfff","#ffcf3d"]};
+const SPR={matcha:["#ffffff","#ffe3ef","#ffd84a"],banana:["#7a4a12","#ffffff","#ff9ccb"],blueberry:["#ffffff","#ffd1ec","#d4ff3a"],strawchoco:["#ff7ab8","#ff9ccb","#ffffff"],ink:["#ffffff","#ffffff","#bdbdbd"],choco:["#ff8fc2","#d4ff3a","#ffffff","#7fd8ff","#ffe066"],berry:["#ffffff","#ffffff","#ff2e93","#ffe3ef"],white:["#ff2e93","#b8e620","#ff9ccb","#6fcfff","#ffcf3d"]};
 const COAT_D="M7 20C7 9 13 3 20 3C27 3 33 9 33 20L33 196C33 203 30.5 206 29 202.5C27.5 199 26 208 23.5 209.5C21 211 20.2 200 17.6 201.5C15 203 13.8 212.5 11.2 207.5C9 203 7 202 7 196Z";
+/* 맛별 토핑: 스프링클 / 아몬드 / 쿠키 크럼 / 초코칩 / 드리즐 / 누드(코팅 없음) */
+const TOPK={almond:"almond",cookie:"crumb",mint:"chip",caramel:"drizzle",nude:"nude"};
+const COATK={almond:"choco",cookie:"white",nude:"choco"};
 function stickArt(fl,{w=38,h=285,border=true,almond=false,seed}={}){
   const r=rng(seed??(Math.random()*1e9|0)),b=uid("b"),c=uid("c"),g=uid("g"),cl=uid("k"),al=uid("a");
+  const topk=almond?"almond":(TOPK[fl]||"spr"),ck=COATK[fl]||fl;if(!COAT[ck])fl="choco";
   let defs=LG(b,[[0,"#8d511d"],[.18,"#cf8f48"],[.42,"#f6d494"],[.55,"#f3cb84"],[.8,"#c98540"],[1,"#83481a"]])
-   +LG(c,COAT[fl])+LG(g,[[0,"#fff",.9],[.6,"#fff",.35],[1,"#fff",0]],0,0,0,1)
+   +LG(c,COAT[ck]||COAT.choco)+LG(g,[[0,"#fff",.9],[.6,"#fff",.35],[1,"#fff",0]],0,0,0,1)
    +RG(al,[[0,"#fbe6c2"],[.7,"#e9c48c"],[1,"#c99858"]],.4,.35,.7)
    +`<clipPath id="${cl}"><path d="${COAT_D}"/></clipPath>`;
   let tex="";
-  for(let i=0;i<54;i++){const x=10.5+r()*19,y=206+r()*86,dk=i%3;
+  const ty0=topk=="nude"?12:206,ty1=topk=="nude"?280:86;
+  for(let i=0;i<(topk=="nude"?150:54);i++){const x=10.5+r()*19,y=ty0+r()*ty1,dk=i%3;
     tex+=`<ellipse cx="${f1(x)}" cy="${f1(y)}" rx="${f2(.35+r()*.6)}" ry="${f2(.25+r()*.35)}" fill="${dk?"#a35d1e":"#fff3d2"}" opacity="${dk?.4:.6}"/>`}
   let top="";
-  if(almond){
+  if(topk=="crumb"){
+    for(let i=0;i<46;i++){const x=8+r()*24,y=8+r()*188,n=5,R=1.1+r()*1.7;let p=[];
+      for(let j=0;j<n;j++){const a=j/n*6.283+r()*.7,q=R*(.55+r()*.55);p.push(f1(x+Math.cos(a)*q)+","+f1(y+Math.sin(a)*q))}
+      top+=`<polygon points="${p.join(" ")}" fill="${i%4?"#2b1a12":"#4a3024"}" stroke="#140a06" stroke-width=".3" stroke-linejoin="round"/>`}
+  }else if(topk=="chip"){
+    for(let i=0;i<34;i++){const x=9+r()*22,y=9+r()*186,s1=.9+r()*.8;
+      top+=`<path d="M${f1(x)} ${f1(y-s1*1.4)}L${f1(x+s1)} ${f1(y+s1*.8)}L${f1(x-s1)} ${f1(y+s1*.8)}Z" fill="#3a1a0b" stroke="#1d0a03" stroke-width=".3" stroke-linejoin="round" transform="rotate(${(r()*360)|0} ${f1(x)} ${f1(y)})"/>`}
+  }else if(topk=="drizzle"){
+    let d="M6 14";for(let y=14;y<190;y+=9)d+=`L${y%18<9?34:6} ${y+9}`;
+    top+=`<path d="${d}" fill="none" stroke="#fff3d6" stroke-width="1.6" stroke-linejoin="round" opacity=".9"/><path d="${d}" fill="none" stroke="#6b360a" stroke-width=".5" opacity=".35" transform="translate(.6 1)"/>`;
+  }else if(topk=="nude"){top=""}
+  else if(topk=="almond"){
     for(let i=0;i<26;i++){const x=9+r()*22,y=10+r()*184,n=5,R=1.6+r()*1.4;let p=[];
       for(let j=0;j<n;j++){const a=j/n*6.283+r()*.6,q=R*(.6+r()*.5);p.push(f1(x+Math.cos(a)*q)+","+f1(y+Math.sin(a)*q))}
       top+=`<polygon points="${p.join(" ")}" fill="url(#${al})" stroke="#b5823f" stroke-width=".35" stroke-linejoin="round"/>`}
   }else{
-    const cs=SPR[fl];
+    const cs=SPR[fl]||SPR.choco;
     for(let i=0;i<62;i++){const x=8+r()*24,y=7+r()*190,a=(r()*180)|0,col=cs[i%cs.length];
       top+=`<g transform="rotate(${a} ${f1(x)} ${f1(y)})"><rect x="${f1(x-2.4)}" y="${f1(y-.95)}" width="4.8" height="1.9" rx=".95" fill="${col}"/><rect x="${f1(x-1.7)}" y="${f1(y-.75)}" width="3" height=".5" rx=".25" fill="#fff" opacity=".75"/></g>`}
   }
   const body=`<rect x="9" y="4" width="22" height="292" rx="11" fill="url(#${b})" stroke="#4a2209" stroke-opacity=".4" stroke-width=".8"/>
    ${tex}<path d="M13.5 216v72M26.5 216v72" stroke="#9c581b" stroke-opacity=".22" stroke-width=".9" stroke-linecap="round"/>
    <rect x="12" y="214" width="3" height="76" rx="1.5" fill="#fff" opacity=".28"/>
-   <path d="${COAT_D}" fill="#2a0e04" opacity=".28" transform="translate(.6 3.2)"/>
+   ${topk=="nude"?`<ellipse cx="20" cy="9" rx="6.5" ry="3" fill="#4b2212" stroke="#2a0e04" stroke-width=".6"/><rect x="12" y="16" width="3.4" height="190" rx="1.7" fill="#fff" opacity=".3"/>`
+   :`<path d="${COAT_D}" fill="#2a0e04" opacity=".28" transform="translate(.6 3.2)"/>
    <path d="${COAT_D}" fill="url(#${c})" stroke="#000" stroke-opacity=".28" stroke-width=".8"/>
    <g clip-path="url(#${cl})">${top}</g>
    <rect x="11.4" y="9" width="4.4" height="186" rx="2.2" fill="url(#${g})"/>
-   <rect x="26.6" y="16" width="1.5" height="170" rx=".75" fill="#fff" opacity=".22"/>
+   <rect x="26.6" y="16" width="1.5" height="170" rx=".75" fill="#fff" opacity=".22"/>`}
    <ellipse cx="17.5" cy="7.6" rx="5" ry="2" fill="#fff" opacity=".45"/>`;
-  return wrap("0 0 40 300",w,h,{defs,body,border,bw:6,sil:"M7 20C7 9 13 3 20 3S33 9 33 20V200H31V285A11 11 0 0 1 9 285V200H7Z"});
+  return wrap("0 0 40 300",w,h,{defs,body,border,bw:6,sil:topk=="nude"?"M9 15A11 11 0 0 1 31 15V285A11 11 0 0 1 9 285Z":"M7 20C7 9 13 3 20 3S33 9 33 20V200H31V285A11 11 0 0 1 9 285V200H7Z"});
 }
 function stickIcon(fl,sz,border,almond){
   const inner=stickArt(fl,{w:11,h:58,border,almond,seed:fl.length*99+(almond?7:0)}).replace("<svg ",'<svg x="19.5" y="-4" preserveAspectRatio="none" ');
@@ -689,15 +716,25 @@ function cloverArt(sz){const g=uid("g");let lv="",sr="";const s=.47;
   const stem="M26 26Q31 40 38 49";
   return wrap("0 0 52 54",sz,sz*1.04,{border:true,bw:5,silRaw:sr+`<path d="${stem}" fill="none" stroke-width="8"/>`,defs:RG(g,[[0,"#f2ffb0"],[.5,"#c6f22a"],[1,"#6fae00"]],.5,.3,.75),
    body:`<path d="${stem}" fill="none" stroke="#5a9a00" stroke-width="2.6" stroke-linecap="round"/>${lv}<circle cx="26" cy="25" r="2" fill="#7ec000"/>`})}
-function butterflyArt(sz){const g=uid("g"),p=uid("p");
-  const W1="M26 24C20 9 6 3 3.5 11C1.5 19 11 26 26 26Z",W2="M26 28C16 28 8 34 10.5 41C13.5 47.5 22 41 26 31Z";
-  const half=`<path d="${W1}" fill="url(#${g})" stroke="${CHROME_EDGE}" stroke-width="1"/><path d="${W2}" fill="url(#${g})" stroke="${CHROME_EDGE}" stroke-width="1"/>
-   <ellipse cx="13" cy="14" rx="4" ry="3" fill="url(#${p})" opacity=".85" transform="rotate(-25 13 14)"/><circle cx="17" cy="37" r="2.6" fill="url(#${p})" opacity=".85"/>
-   <path d="M7 11C9 8 13 8 16 10" fill="none" stroke="#fff" stroke-width="1.1" stroke-linecap="round"/>`;
-  return wrap("0 0 52 50",sz*1.04,sz,{defs:LG(g,CHROME,0,0,.8,1)+RG(p,[[0,"#ffd6ea"],[1,"#ff2e93"]]),
-   body:`${half}<g transform="translate(52 0) scale(-1 1)">${half}</g>
-   <path d="M24.5 13Q20 5 16 4M27.5 13Q32 5 36 4" fill="none" stroke="${CHROME_EDGE}" stroke-width="1" stroke-linecap="round"/><circle cx="16" cy="4" r="1.3" fill="${CHROME_EDGE}"/><circle cx="36" cy="4" r="1.3" fill="${CHROME_EDGE}"/>
-   <rect x="23.6" y="12" width="4.8" height="30" rx="2.4" fill="url(#${g})" stroke="${CHROME_EDGE}" stroke-width=".9"/>`})}
+function butterflyArt(sz){const g=uid("g"),p=uid("p"),q=uid("q"),bd=uid("b");
+  const U="M25 23C21 9 9 2 4.5 7C0.5 11.5 4 20 11 23.5C15 25.5 20 26 25 25Z",L="M25 27C18 27 10 30 8.5 37C7 44 13 47.5 18 44C22 41 24.5 35 25 30Z";
+  const UI="M23 22C19.5 12 11.5 7.5 8 10C5.5 12 7.5 18 12.5 20.5C15.5 22 19.5 22.5 23 22Z",LI="M23 29C18.5 29.5 13.5 32 12.5 36.5C11.8 40 14.6 41.5 17.2 39.6C20 37.6 22 33.6 23 29Z";
+  const half=`<path d="${U}" fill="url(#${g})" stroke="${CHROME_EDGE}" stroke-width="1.1" stroke-linejoin="round"/><path d="${L}" fill="url(#${g})" stroke="${CHROME_EDGE}" stroke-width="1.1" stroke-linejoin="round"/>
+   <path d="${UI}" fill="url(#${p})"/><path d="${LI}" fill="url(#${q})"/>
+   <circle cx="9.5" cy="12" r="1.4" fill="#fff"/><circle cx="12.5" cy="15.5" r=".8" fill="#fff" opacity=".8"/><circle cx="15" cy="38" r=".9" fill="#fff"/>
+   <path d="M7 8.5C9.5 6.5 13.5 6.8 17 9.5" fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round" opacity=".9"/>`;
+  const mir=s=>`<g transform="translate(50 0) scale(-1 1)">${s}</g>`;
+  const sil=`<path d="${U}"/><path d="${L}"/>`;
+  return wrap("0 0 50 48",sz*1.04,sz,{border:true,bw:5,silRaw:sil+mir(sil)+`<rect x="22.5" y="13" width="5" height="30" rx="2.5"/>`,
+   defs:LG(g,CHROME,0,0,.8,1)+RG(p,[[0,"#ffe6f3"],[.55,"#ff8fc6"],[1,"#ff2e93"]],.6,.6,.7)+RG(q,[[0,"#f4ffc4"],[.6,"#d4ff3a"],[1,"#9fca10"]],.6,.4,.7)
+     +LG(bd,[[0,"#555e75"],[.4,"#c9cfdb"],[.6,"#ffffff"],[1,"#555e75"]]),
+   body:`${half}${mir(half)}
+   <path d="M24 13.5C22.5 8 19.5 4.5 16.5 3.5M26 13.5C27.5 8 30.5 4.5 33.5 3.5" fill="none" stroke="${CHROME_EDGE}" stroke-width="1" stroke-linecap="round"/>
+   <circle cx="16.3" cy="3.6" r="1.6" fill="url(#${p})" stroke="${CHROME_EDGE}" stroke-width=".6"/><circle cx="33.7" cy="3.6" r="1.6" fill="url(#${p})" stroke="${CHROME_EDGE}" stroke-width=".6"/>
+   <ellipse cx="25" cy="15.5" rx="2.6" ry="2.4" fill="url(#${bd})" stroke="${CHROME_EDGE}" stroke-width=".7"/>
+   <ellipse cx="25" cy="22" rx="2.3" ry="4.4" fill="url(#${bd})" stroke="${CHROME_EDGE}" stroke-width=".7"/>
+   <ellipse cx="25" cy="33" rx="2" ry="8" fill="url(#${bd})" stroke="${CHROME_EDGE}" stroke-width=".7"/>
+   <path d="M23.4 30H26.6M23.4 34H26.6M23.6 38H26.4" stroke="${CHROME_EDGE}" stroke-width=".5" opacity=".6"/>`})}
 function cdArt(sz){const b=uid("b"),r1=uid("r"),r2=uid("s");
   const D="M26 3a23 23 0 1 0 .01 0zM26 22.5a3.5 3.5 0 1 1-.01 0z";
   return wrap("0 0 52 52",sz,sz,{defs:RG(b,[[0,"#ffffff"],[.5,"#e4e8f0"],[1,"#aab2c4"]])
@@ -905,7 +942,7 @@ function fileToSrc(f){return new Promise((res,rej)=>{const u=URL.createObjectURL
 
 /* ================= 1단계: 입력 ================= */
 const SN=[["choco","초코 스틱"],["berry","딸기 스틱"],["almond","아몬드 스틱"],["fish","붕어 크래커"],["ring","링 젤리"],["star","별 초콜릿"],["mallow","마시멜로"],["pop","막대사탕"]];
-const FL=[["choco","초코"],["berry","딸기"],["white","화이트"],["ink","블랙"]];
+const FL=[["choco","초코"],["berry","딸기"],["white","화이트"],["ink","블랙"],["almond","아몬드"],["cookie","쿠앤크"],["matcha","말차"],["mint","민트초코"],["banana","바나나"],["blueberry","블루베리"],["caramel","카라멜"],["strawchoco","딸기초코"],["nude","누드"]];
 const VB=["달달","짭짤","바삭","쫀득"];
 const MAX=3;
 const S={p:[{n:"",f:"berry",k:[],v:"",ph:null,nic:"wrap",icOpen:false,icFor:null,mode:"pick"},{n:"",f:"choco",k:[],v:"",ph:null,nic:"wrap",icOpen:false,icFor:null,mode:"pick"}],sc:0,sh:[],tt:"",
@@ -923,21 +960,22 @@ function win(i){
   box.innerHTML=`<section class="win" aria-label="${who}">
   <div class="tb"><span>${who}.exe</span><i><s></s><s></s><s></s></i></div>
   <div class="bd">
-    <label class="field"><span class="lab">이름 또는 닉네임</span><input class="txt nm" maxlength="8" value="${esc(p.n)}" placeholder="${i?"상대 이름":"내 이름"}"></label>
+    <label class="field"><span class="lab">이름 또는 닉네임</span><input class="txt nm" maxlength="16" value="${esc(p.n)}" placeholder="${i?"상대 이름":"내 이름"}"></label>
     <div class="field"><span class="lab">프로필 사진 <em>선택</em></span>
       <div class="pfrow"><button class="pfbtn ${ph?"has":""}" data-pf="pick" aria-label="프로필 사진 ${ph?"바꾸기":"넣기"}">${ph?`<img src="${ph.out}" alt="">`:`<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>`}</button>
       <div class="pfact">${ph?`<button class="mini" data-pf="edit">자르기·꾸미기</button><button class="mini" data-pf="pick">바꾸기</button><button class="mini" data-pf="del">빼기</button>`:`<span class="hint" style="margin:0">넣으면 페어틀에 프로필 스티커로 들어가요.</span>`}</div></div></div>
-    <div class="field"><span class="lab">내 스틱 맛</span><div class="seg fl">${FL.map(f=>`<button class="chip" data-f="${f[0]}" aria-pressed="${p.f==f[0]}">${stickArt(f[0],{w:9,h:34,border:false,seed:3})}${f[1]}</button>`).join("")}</div></div>
+    <div class="field"><span class="lab">내 스틱 맛</span><div class="flg">${FL.map(f=>`<button class="chip" data-f="${f[0]}" aria-pressed="${p.f==f[0]}">${stickArt(f[0],{w:12,h:44,border:false,seed:3})}${f[1]}</button>`).join("")}</div></div>
     <div class="field"><span class="lab">좋아하는 과자 <em>${p.k.length} / ${MAX}</em></span>
       <div class="grid kk">${list.map(a=>`<button class="chip" data-k="${esc(a[0])}" aria-pressed="${has(a[0])}" ${!has(a[0])&&full?"disabled":""}>${iconArt(iconFor(a),36)}${esc(a[1])}</button>`).join("")}</div>
       <div class="spx"><button class="chip" data-mode="any" aria-pressed="${p.mode=="any"}">${iconArt("smiley",26)}아무거나 다 좋아</button><button class="chip" data-mode="none" aria-pressed="${p.mode=="none"}">${iconArt("mheart",26)}과자 별로…</button></div>
       <p class="hint" style="margin:6px 0 0;font-size:12px">${p.mode=="any"?"상대가 고른 과자가 전부 ‘같이 좋아하는 과자’가 돼요.":p.mode=="none"?"과자 대신 사람을 보는 궁합으로 계산해요.":"안 골라도 넘어갈 수 있어요."}</p>
-      <div class="add"><button type="button" class="icbtn" data-ic="new" aria-expanded="${p.icOpen&&!p.icFor}" aria-label="새 과자 아이콘 고르기">${iconArt(p.nic,30)}<span>아이콘</span></button><input class="txt ad" maxlength="7" placeholder="목록에 없으면 직접 입력" aria-label="과자 직접 입력"><button type="button" class="adb">추가</button></div>
+      <div class="add"><button type="button" class="icbtn" data-ic="new" aria-expanded="${p.icOpen&&!p.icFor}" aria-label="새 과자 아이콘 고르기">${iconArt(p.nic,30)}<span>아이콘</span></button><input class="txt ad" maxlength="12" placeholder="목록에 없으면 직접 입력" aria-label="과자 직접 입력"><button type="button" class="adb">추가</button></div>
       ${p.k.some(k=>k[0].startsWith("c:"))?`<div class="mycus">${p.k.filter(k=>k[0].startsWith("c:")).map(k=>`<span class="cuitem">${iconArt(iconFor(k),22)}<b>${esc(k[1])}</b><button type="button" class="mini" data-ic="${esc(k[0])}">아이콘 바꾸기</button></span>`).join("")}</div>`:""}
       ${p.icOpen?`<div class="icpop" role="dialog" aria-label="아이콘 고르기"><div class="ichead"><b>${p.icFor?`‘${esc((p.k.find(k=>k[0]==p.icFor)||[,""])[1])}’ 아이콘`:"새로 넣을 과자 아이콘"}</b><button type="button" class="mini" data-icx>닫기</button></div>
         <div class="icgrid">${ICON_KEYS.map(key=>`<button type="button" data-icon="${key}" aria-pressed="${(p.icFor?iconFor(p.k.find(k=>k[0]==p.icFor)||[]):p.nic)==key}">${iconArt(key,34)}</button>`).join("")}</div></div>`:""}
     </div>
-    <div class="field" style="margin:0"><span class="lab">과자 취향</span><div class="seg vb">${VB.map(v=>`<button class="chip" data-v="${v}" aria-pressed="${p.v==v}">${v}</button>`).join("")}</div></div>
+    <div class="field" style="margin:0"><span class="lab">과자 취향 <em>직접 써도 돼요</em></span><div class="seg vb">${VB.map(v=>`<button class="chip" data-v="${v}" aria-pressed="${p.v==v}">${v}</button>`).join("")}${p.v&&!VB.includes(p.v)?`<button class="chip" data-v="${esc(p.v)}" aria-pressed="true">${esc(p.v)}</button>`:""}</div>
+      <div class="add"><input class="txt tv" maxlength="10" placeholder="예: 꾸덕, 촉촉, 매콤" aria-label="과자 취향 직접 쓰기"><button type="button" class="tvb">넣기</button></div></div>
   </div></section>`;
   box.querySelector(".nm").oninput=e=>{p.n=e.target.value.trim();saveSoon()};
   box.querySelectorAll("[data-pf]").forEach(b=>b.onclick=()=>{const a=b.dataset.pf;
@@ -946,6 +984,8 @@ function win(i){
     pickImage(src=>openIE({src,st:{shape:"ci",bw:7},title:`${who} 프로필 사진`},(out,st,src2)=>{const id="im"+(++imgN);IMG.set(id,{src:src2,st,out});p.ph=id;win(i)}))});
   box.querySelectorAll("[data-f]").forEach(b=>b.onclick=()=>{p.f=b.dataset.f;win(i)});
   box.querySelectorAll("[data-v]").forEach(b=>b.onclick=()=>{p.v=p.v==b.dataset.v?"":b.dataset.v;win(i)});
+  const tv=box.querySelector(".tv"),tvAdd=()=>{const s=tv.value.trim();if(!s)return;p.v=s;win(i)};
+  box.querySelector(".tvb").onclick=tvAdd;tv.onkeydown=e=>{if(e.key=="Enter"){e.preventDefault();tvAdd()}};
   box.querySelectorAll("[data-mode]").forEach(b=>b.onclick=()=>{const m=b.dataset.mode;p.mode=p.mode==m?"pick":m;if(p.mode!="pick")p.k=[];win(i)});
   box.querySelectorAll("[data-k]").forEach(b=>b.onclick=()=>{p.mode="pick";
     const id=b.dataset.k;if(has(id))p.k=p.k.filter(k=>k[0]!=id);else if(!full)p.k.push(list.find(a=>a[0]==id));win(i);
@@ -1004,9 +1044,9 @@ const THEMES=[
  {name:"초코 우유",moc:"#3a1a0b",mtc:"#ffd6e8",bg1:"#6b3a26",bg2:"#3a1a0b",grad:true,pat:"dots",patc:"#7e4630",hc:"#ffd6e8",h2:"#ffffff",h3:"#e8b46a",hs:"#ff7ab8",vt:"#7e4630",acc:"#ffd6e8",acct:"#5a2e1e",win:"#fff8ef",tb1:"#3a1a0b",tb2:"#a35d3b"},
  {name:"흑백 만화",bg1:"#ffffff",bg2:"#ffffff",grad:false,pat:"tone",patc:"#cfcfcf",hc:"#ffffff",h2:"#111111",h3:"#111111",hs:"#111111",vt:"#e6e6e6",acc:"#111111",acct:"#ffffff",win:"#ffffff",tb1:"#111111",tb2:"#4a4a4a",ink:"#111111",pk:"#111111",bub:"#e6e6e6",manga:true},
  {name:"집중선",bg1:"#ffffff",bg2:"#ffffff",grad:false,pat:"focus",patc:"#111111",hc:"#ffffff",h2:"#111111",h3:"#111111",hs:"#111111",vt:"#ededed",acc:"#ffffff",acct:"#111111",win:"#ffffff",tb1:"#111111",tb2:"#111111",ink:"#111111",pk:"#111111",bub:"#e6e6e6",manga:true},
- {name:"효과선",bg1:"#ffffff",bg2:"#ffffff",grad:false,pat:"speed",patc:"#cfcfcf",hc:"#111111",h2:"#ffffff",h3:"#ffffff",hs:"#111111",vt:"#e6e6e6",acc:"#111111",acct:"#ffffff",win:"#ffffff",tb1:"#111111",tb2:"#5a5a5a",ink:"#111111",pk:"#111111",bub:"#e6e6e6",manga:true},
+ {name:"효과선",bg1:"#ffffff",bg2:"#ffffff",grad:false,pat:"speed",patc:"#cfcfcf",hc:"#ffffff",h2:"#111111",h3:"#111111",hs:"#111111",vt:"#e6e6e6",acc:"#111111",acct:"#ffffff",win:"#ffffff",tb1:"#111111",tb2:"#5a5a5a",ink:"#111111",pk:"#111111",bub:"#e6e6e6",manga:true},
  {name:"스크린톤",bg1:"#f4f4f4",bg2:"#a9a9a9",grad:true,pat:"tone",patc:"#7a7a7a",hc:"#ffffff",h2:"#111111",h3:"#111111",hs:"#111111",vt:"#d6d6d6",acc:"#ffffff",acct:"#111111",win:"#ffffff",tb1:"#111111",tb2:"#111111",ink:"#111111",pk:"#111111",bub:"#e6e6e6",manga:true},
- {name:"빗금 톤",bg1:"#ffffff",bg2:"#ffffff",grad:false,pat:"hatch",patc:"#d9d9d9",hc:"#111111",h2:"#ffffff",h3:"#ffffff",hs:"#111111",vt:"#e6e6e6",acc:"#111111",acct:"#ffffff",win:"#ffffff",tb1:"#111111",tb2:"#444444",ink:"#111111",pk:"#ff2e93",bub:"#ffd6e8",manga:true},
+ {name:"빗금 톤",bg1:"#ffffff",bg2:"#ffffff",grad:false,pat:"hatch",patc:"#d9d9d9",hc:"#ffffff",h2:"#111111",h3:"#111111",hs:"#111111",vt:"#e6e6e6",acc:"#111111",acct:"#ffffff",win:"#ffffff",tb1:"#111111",tb2:"#444444",ink:"#111111",pk:"#111111",bub:"#e6e6e6",manga:true},
  {name:"미드나잇",moc:"#ff2e93",bg1:"#1a0b2e",bg2:"#3f1670",grad:true,pat:"stars",patc:"#ff2e93",hc:"#ffffff",h2:"#d9deea",h3:"#9aa4bd",hs:"#ff2e93",vt:"#3d1c66",acc:"#d4ff3a",acct:"#2a1240",win:"#ffffff",tb1:"#ff2e93",tb2:"#7a2a8a"}
 ];
 const PATS=[["none","없음"],["dots","도트"],["stars","별"],["hearts","하트"],["check","체커"],["grid","격자"],["stripes","줄무늬"],["sparkle","반짝"],["tone","망점 톤"],["hatch","빗금"],["speed","효과선"],["focus","집중선"]];
@@ -1035,7 +1075,7 @@ function bgURL(t,W,H){
 function applyTheme(){
   const t=S.th;["hc","h2","h3","hs","vt","acc","acct","win"].forEach(x=>P.style.setProperty("--"+x,t[x]));
   P.style.setProperty("--tb",`linear-gradient(90deg,${t.tb1},${t.tb2})`);
-  P.style.setProperty("--mtcT",t.mtc||"#ffffff");P.style.setProperty("--ocT",t.moc||t.pk||"#ff2e93");
+  P.style.setProperty("--mtcT",t.mtc||"#ffffff");P.style.setProperty("--ldcT",t.gauge||t.pk||"#ff2e93");P.style.setProperty("--ocT",t.moc||t.pk||"#ff2e93");
   P.classList.toggle("manga",!!t.manga);P.style.setProperty("--ink",t.ink||"#2a1240");P.style.setProperty("--pink",t.pk||"#ff2e93");P.style.setProperty("--bubble",t.bub||"#ffc4e1");
   P.style.backgroundImage=bgURL(t,FMT[S.fmt].W,FMT[S.fmt].H);
 }
@@ -1043,17 +1083,17 @@ function applyTheme(){
 /* ================= 판형 · 배치 ================= */
 const FMT={
  P:{name:"세로 4:5",W:360,H:450,ld:334,
-   L:{hd:[12,4,-4],pill:[14,86,-2],msg:[206,22,7],stA:[138,104,-4],stB:[184,98,4],wA:[6,122,-3],wB:[234,146,3],sc:[124,286,-8],rw:[8,318,2],sign:[244,350,-3],ld:[12,404],ldt:[13,428],pfA:[86,96,-6],pfB:[296,112,6]},
+   L:{hd:[12,4,-4],pill:[14,82,-2],msg:[206,22,7],stA:[138,104,-4],stB:[184,98,4],wA:[6,122,-3],wB:[234,146,3],sc:[124,286,-8],rw:[8,318,2],sign:[244,350,-3],ld:[12,404],ldt:[13,428],pfA:[86,96,-6],pfB:[296,112,6]},
    slots:[[290,74,50],[240,92,42],[4,268,48],[94,274,38],[296,292,46],[244,298,38],[160,56,34],[316,232,32]],spk:[[118,96,12],[340,128,10],[24,396,13],[226,268,11],[130,256,10]]},
  S:{name:"정사각 1:1",W:400,H:400,ld:374,
-   L:{hd:[14,6,-4],pill:[16,88,-2],msg:[250,22,7],stA:[156,74,-4,.9],stB:[202,68,4,.9],wA:[8,120,-3],wB:[272,132,3],sc:[146,236,-8],rw:[10,272,2],sign:[282,304,-3],ld:[12,356],ldt:[13,380],pfA:[92,98,-6],pfB:[336,108,6]},
+   L:{hd:[14,6,-4],pill:[16,80,-2],msg:[250,22,7],stA:[156,74,-4,.9],stB:[202,68,4,.9],wA:[8,128,-3],wB:[272,140,3],sc:[146,236,-8],rw:[10,272,2],sign:[282,304,-3],ld:[12,356],ldt:[13,380],pfA:[92,98,-6],pfB:[336,108,6]},
    slots:[[332,70,46],[230,58,36],[6,240,42],[112,250,34],[330,248,42],[284,266,32],[174,40,30],[364,212,28]],spk:[[132,96,12],[380,118,10],[18,344,12],[262,232,11],[150,224,10]]},
  L:{name:"가로 3:2",W:480,H:320,ld:170,
-   L:{hd:[14,4,-4],pill:[16,84,-2],msg:[334,12,7],stA:[202,10,-4,.8],stB:[244,6,4,.8],wA:[14,112,-3],wB:[346,62,3],sc:[186,170,-8,.92],rw:[348,206,2],sign:[22,268,-3],ld:[112,290],ldt:[290,294],pfA:[100,96,-6,.9],pfB:[300,40,6,.9]},
+   L:{hd:[14,4,-4],pill:[16,78,-2],msg:[334,12,7],stA:[202,10,-4,.8],stB:[244,6,4,.8],wA:[14,118,-3],wB:[346,62,3],sc:[186,170,-8,.92],rw:[348,206,2],sign:[22,268,-3],ld:[112,290],ldt:[290,294],pfA:[100,96,-6,.9],pfB:[300,40,6,.9]},
    slots:[[236,6,40],[148,52,36],[296,112,34],[146,148,32],[18,280,0],[300,248,30],[150,250,30],[440,290,26]],spk:[[200,70,12],[316,208,10],[132,120,12],[170,104,10],[452,296,11]]},
  V:{name:"스토리 9:16",W:360,H:640,ld:334,
-   L:{hd:[12,44,-4,1.12],pill:[14,132,-2],msg:[206,58,7],stA:[138,196,-4,1.04],stB:[184,190,4,1.04],wA:[6,214,-3],wB:[234,238,3],sc:[124,398,-8],rw:[8,432,2],sign:[244,466,-3],ld:[12,586],ldt:[13,610],pfA:[40,508,-5,1.25],pfB:[244,516,5,1.25]},
-   slots:[[290,112,50],[240,140,42],[4,358,48],[94,364,38],[296,382,46],[248,392,38],[160,104,34],[150,520,44],[300,10,40],[20,10,34]],spk:[[118,180,12],[340,214,10],[24,628,13],[226,358,11],[130,346,10],[70,560,12],[200,500,11],[330,580,12]]}
+   L:{hd:[12,44,-4,1.15],pill:[14,134,-2],msg:[206,62,7],stA:[138,196,-4,1.15],stB:[184,190,4,1.15],wA:[6,190,-3],wB:[234,218,3],sc:[124,440,-8],rw:[8,452,2],sign:[236,512,-3],ld:[12,588],ldt:[13,612],pfA:[0,0],pfB:[0,0]},
+   slots:[[290,112,50],[240,142,42],[8,350,46],[86,372,36],[296,372,46],[256,420,38],[150,100,34],[290,548,40],[20,12,34],[150,566,36]],spk:[[118,182,12],[340,214,10],[24,628,13],[226,356,11],[130,346,10],[70,566,12],[200,520,11],[330,600,12]]}
 };
 
 /* ================= 편집기 ================= */
@@ -1073,33 +1113,52 @@ function add(html,o){
   P.insertBefore(el,$("sel"));apply(el);return el}
 function winBox(p,i){
   return `<div class="t"><span>${i?"YOU":"ME"}.txt</span><i><s></s><s></s></i></div><div class="b">
-   <div class="nm">${esc(p.n)}</div><ul>${p.mode=="any"?`<li class="sh">${iconArt("smiley",18)}아무거나 다 좋아</li>`
+   <div class="nm"><span>${esc(p.n)}</span></div><ul>${p.mode=="any"?`<li class="sh">${iconArt("smiley",18)}아무거나 다 좋아</li>`
      :p.mode=="none"?`<li>${iconArt("mheart",18)}과자보다 너</li>`
      :p.k.length?p.k.map(k=>`<li class="${S.sh.includes(k[0])?"sh":""}">${iconArt(iconFor(k),18)}${esc(k[1])}</li>`).join("")
      :`<li>${iconArt("mthink",18)}최애 과자 찾는 중…</li>`}</ul>
    ${p.v?`<span class="tst">${p.v} 파</span>`:""}</div>`;
 }
 const imgHTML=(id,w)=>`<img data-im src="${IMG.get(id).out}" style="width:${w}px" alt="">`;
-function build(){
-  const [a,b]=S.p;
+/* 처음 배치 전에 쓰는 폰트를 먼저 불러온다 — 폰트가 바뀌며 폭이 늘어 화면 밖으로 나가는 것 방지 */
+function waitFonts(ms=2500){const fam=[FONTS.find(f=>f.id==S.fh),FONTS.find(f=>f.id==S.fb)].filter(Boolean).map(f=>f.f).concat(["'MsgKo'","'Pacifico'"]);
+  const txt="가나다라11.11%PAIR"+S.p.map(p=>p.n+p.k.map(k=>k[1]).join("")).join("")+S.tt+$("msg").value;
+  return Promise.race([Promise.all(fam.map(f=>document.fonts.load(`20px ${f}`,txt).catch(()=>{}))),new Promise(r=>setTimeout(r,ms))])}
+async function build(){
+  const [a,b]=S.p;P.style.visibility="hidden";
   P.innerHTML=`<div id="sel"><i data-h="del" title="삭제">×</i><i data-h="rs" title="크기·각도"></i></div>`;cur=null;
   setSize();applyTheme();applyFonts();
   add(`<span class="ed">STICK DAY PAIR</span>`,{cls:"vt",key:"vt",r:90,z:1,edit:true});
   add(`<span class="ed">11.11</span>`,{cls:"hd",key:"hd",z:6,edit:true});
   add(`<span class="ed">우리 둘 과자 궁합</span>`,{cls:"pill",key:"pill",z:7,edit:true});
-  add(`<span class="ed">${esc($("msg").value.trim()||"hello!")}</span>`,{cls:"msg",key:"msg",z:8,edit:true});
+  if($("msg").value.trim())add(`<span class="ed">${esc($("msg").value.trim())}</span>`,{cls:"msg",key:"msg",z:8,edit:true});
   add(stickArt(a.f,{w:38,h:285,seed:11}),{cls:"stk",key:"stA",z:3});
   add(stickArt(b.f,{w:38,h:285,seed:12}),{cls:"stk",key:"stB",z:3});
-  add(winBox(a,0),{cls:"w",key:"wA",z:5});
-  add(winBox(b,1),{cls:"w",key:"wB",z:5});
+  add(winBox(a,0),{cls:"w"+(a.ph?" haspf":""),key:"wA",z:5});
+  add(winBox(b,1),{cls:"w"+(b.ph?" haspf":""),key:"wB",z:5});
   add(`<b class="ed">${S.sc}%</b><span>pair match</span>`,{cls:"sc",key:"sc",z:8,edit:true});
   add(`<div class="t"><span>result.exe</span><span>×</span></div><p class="ed">${esc(S.tt)}</p><em>OK</em>`,{cls:"rw",key:"rw",z:7,edit:true});
   add(`<span class="ed">PRETTY PAIR AVE.</span>`,{cls:"sign",key:"sign",z:7,edit:true});
   add(`<i style="width:${S.sc}%"></i>`,{cls:"ld",key:"ld",z:6});
   add(`<span class="ed">LOADING ${S.sc}%</span>`,{cls:"ldt",key:"ldt",z:6,edit:true});
   S.p.forEach((p,i)=>{if(p.ph&&IMG.get(p.ph))add(imgHTML(p.ph,64),{cls:"img pf",key:i?"pfB":"pfA",img:p.ph,z:10})});
-  fitMsg();layout();autoStickers();Z=40;select(null);H.st=[];H.i=-1;commit();
+  await waitFonts();fitMsg();layout();autoStickers();P.style.visibility="";Z=40;select(null);H.st=[];H.i=-1;commit();
 }
+/* 한 줄짜리 라벨이 너무 길면 글자를 줄여 정해진 폭에 맞춤 */
+function fitBox(key,maxW){const el=P.querySelector(`[data-key="${key}"]`);if(!el)return;const ed=el.querySelector(".ed");if(!ed||ed.dataset.man)return;
+  ed.style.fontSize="";let fs=parseFloat(getComputedStyle(ed).fontSize);while(el.offsetWidth>maxW&&fs>8){fs-=.5;ed.style.fontSize=fs+"px"}}
+/* 이름이 길면 한 줄에 맞게 글자를 줄이고, 그래도 넘치면 줄바꿈 */
+function fitNames(){P.querySelectorAll(".w .nm").forEach(nm=>{if(nm.dataset.man)return;const sp=nm.firstElementChild;if(!sp)return;
+  nm.style.whiteSpace="nowrap";let fs=17;nm.style.fontSize=fs+"px";const cs=getComputedStyle(nm),avail=nm.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);
+  while(sp.offsetWidth>avail+.5&&fs>11){fs-=.5;nm.style.fontSize=fs+"px"}
+  if(sp.offsetWidth>avail+.5){nm.style.whiteSpace="normal";nm.style.fontSize="13px"}})}
+/* 회전·크기까지 반영한 실제 상자를 포스터 안으로 */
+function boxOf(el){const r=el.getBoundingClientRect(),p=P.getBoundingClientRect(),b=2;
+  return {x1:(r.left-p.left)/k-b,y1:(r.top-p.top)/k-b,x2:(r.right-p.left)/k-b,y2:(r.bottom-p.top)/k-b}}
+function clampIn(el,m=4){const f=FMT[S.fmt],bx=boxOf(el),d=el.dataset;let dx=0,dy=0;
+  if(bx.x2-bx.x1>f.W-2*m)dx=m-bx.x1;else if(bx.x1<m)dx=m-bx.x1;else if(bx.x2>f.W-m)dx=f.W-m-bx.x2;
+  if(bx.y2-bx.y1>f.H-2*m)dy=m-bx.y1;else if(bx.y1<m)dy=m-bx.y1;else if(bx.y2>f.H-m)dy=f.H-m-bx.y2;
+  if(dx||dy){d.x=(+d.x+dx).toFixed(1);d.y=(+d.y+dy).toFixed(1);apply(el)}}
 /* 한마디: 줄바꿈은 직접 넣은 곳에서만. 길면 글자 크기를 줄여 한 줄에 맞춘다 */
 function fitMsg(){const el=P.querySelector('[data-key="msg"]');if(!el)return;const ed=el.querySelector(".ed"),f=FMT[S.fmt],v=f.L.msg;
   if(ed.dataset.man)return; /* 직접 크기를 정했으면 건드리지 않음 */
@@ -1114,7 +1173,13 @@ function layout(){
     if(key=="vt"){d.r=90;d.s=1;const w=el.offsetWidth,h=el.offsetHeight;d.x=(f.W-26-w/2).toFixed(1);d.y=(6+w/2-h/2).toFixed(1);apply(el);return}
     const v=f.L[key];if(!v)return;d.x=v[0];d.y=v[1];d.r=v[2]||0;d.s=v[3]||1;
     if(key=="ld")el.style.width=f.ld+"px";apply(el)});
-  placeMsg();
+  placeMsg();fitNames();fitBox("sign",{P:120,S:120,L:124,V:120}[S.fmt]);fitBox("pill",150);
+  /* 프로필 사진은 이름 창 모서리에 붙여서 (창 높이가 달라도 맞게) */
+  const pfS={P:1,S:1,L:.9,V:1.2}[S.fmt]||1;
+  [["pfA","wA",1,-6],["pfB","wB",0,6]].forEach(([pk,wk,right,rot])=>{const pf=P.querySelector(`[data-key="${pk}"]`),w=P.querySelector(`[data-key="${wk}"]`);if(!pf||!w)return;
+    const d=pf.dataset;d.s=pfS;d.r=rot;const bw=boxOf(w),pw=pf.offsetWidth*pfS,ph=pf.offsetHeight*pfS;
+    const cx=bw.x2-pw*.28,cy=bw.y1+ph*.2; /* 창 오른쪽 위 모서리: 제목줄과 이름 끝만 살짝 덮음 */d.x=(cx-pf.offsetWidth/2).toFixed(1);d.y=(cy-pf.offsetHeight/2).toFixed(1);apply(pf)});
+  P.querySelectorAll(".it[data-key]").forEach(el=>{if(el.dataset.key!="vt")clampIn(el)});
   P.querySelectorAll(".it:not([data-key])").forEach(el=>{const d=el.dataset;   /* 내가 넣은 것들은 화면 안으로 */
     d.x=Math.min(Math.max(+d.x,-el.offsetWidth/2),f.W-el.offsetWidth/2);d.y=Math.min(Math.max(+d.y,-el.offsetHeight/2),f.H-el.offsetHeight/2);apply(el)});
 }
@@ -1133,6 +1198,7 @@ function autoStickers(){
     else if(i<7)add(DECO[deco[Math.floor(r()*deco.length)]](s[2]*.85),{cls:"stc auto",x,y,r:rot,z:9});
     else add(S.th.manga?mSparkle(s[2]*.6):sparkleArt(s[2]*.5,i%2?"#fff":S.th.acc),{cls:"spk auto",x:x+8,y:y+8,r:rot,z:2});
   });
+  P.querySelectorAll(".auto.stc").forEach(el=>clampIn(el,2));
   f.spk.forEach((p,i)=>add(S.th.manga?mSparkle(p[2]*1.4):i%2?sparkleArt(p[2],"#fff"):sparkleArt(p[2]+2),{cls:"spk auto",x:p[0],y:p[1],z:2}));
 }
 
@@ -1247,7 +1313,7 @@ function paneSticker(){
   const sn=[...SN.map(s=>s[0]),"wrap"];
   p.innerHTML=`<button class="wbtn" id="reshuf">자동 스티커 다시 섞기</button>
    <div class="sub">과자</div><div class="stk-grid" id="stS">${sn.map(id=>`<button data-s="${id}" aria-label="${(SN.find(s=>s[0]==id)||[,"사탕"])[1]} 스티커">${art(id,40)}</button>`).join("")}</div>
-   <div class="sub">스틱 (큰 사이즈)</div><div class="stk-grid">${["choco","berry","white","ink"].map(f=>`<button data-big="${f}" aria-label="${f} 스틱">${stickArt(f,{w:12,h:46,border:false,seed:2})}</button>`).join("")}</div>
+   <div class="sub">스틱 (큰 사이즈)</div><div class="stk-grid">${FL.map(x=>x[0]).map(f=>`<button data-big="${f}" aria-label="${f} 스틱">${stickArt(f,{w:12,h:46,border:false,seed:2})}</button>`).join("")}</div>
    <div class="sub">과일</div><div class="stk-grid">${Object.keys(FRUIT).map(id=>`<button data-d="${id}" aria-label="과일 스티커">${DECO[id](38)}</button>`).join("")}</div>
    <div class="sub">흑백 만화</div><div class="stk-grid">${Object.keys(MANGA).map(id=>`<button data-d="${id}" aria-label="만화 장식">${DECO[id](38)}</button>`).join("")}</div>
    <div class="sub">장식</div><div class="stk-grid" id="stD">${Object.keys(DECO).filter(k=>!MANGA[k]&&!FRUIT[k]).map(id=>`<button data-d="${id}" aria-label="장식 스티커">${DECO[id](38)}</button>`).join("")}</div>`;
@@ -1353,13 +1419,13 @@ function paneFont(){
     const id=b.dataset.f,css=fontCss(id);
     try{await document.fonts.load(`24px ${FONTS.find(f=>f.id==id).f}`,"가나다11.11PAIR"+(P.textContent||"").slice(0,200))}catch(e){}
     if(cur&&cur.dataset.edit){const ed=cur.querySelector(".ed")||cur;cur.style.fontFamily="";ed.style.fontFamily=css;cur.dataset.font=id}
-    else{S[S.tgt]=id;applyFonts()}
+    else{S[S.tgt]=id;applyFonts();fitNames()}
     place();commit();paneFont();renderProps()});
 }
 
 /* ---------- 테마 ---------- */
-const THD={ink:"#2a1240",pk:"#ff2e93",mtc:"#ffffff",moc:"#ff2e93"};
-const THC=[["bg1","배경 1"],["bg2","배경 2"],["patc","무늬 색"],["hc","제목 글자"],["hs","제목 그림자"],["acc","포인트"],["acct","포인트 글자"],["win","창 바탕"],["tb1","제목줄 왼쪽"],["tb2","제목줄 오른쪽"],["vt","세로 글자"],["ink","선·글자"],["pk","포인트 2"],["mtc","한마디 글자"],["moc","한마디 외곽선"]];
+const THD={ink:"#2a1240",pk:"#ff2e93",mtc:"#ffffff",moc:"#ff2e93",gauge:"#ff2e93"};
+const THC=[["bg1","배경 1"],["bg2","배경 2"],["patc","무늬 색"],["hc","제목 글자"],["hs","제목 그림자"],["acc","포인트"],["acct","포인트 글자"],["win","창 바탕"],["tb1","제목줄 왼쪽"],["tb2","제목줄 오른쪽"],["vt","세로 글자"],["ink","선·글자"],["pk","포인트 2"],["mtc","한마디 글자"],["moc","한마디 외곽선"],["gauge","로딩 바"]];
 function paneTheme(){
   const p=pane("th"),t=S.th;
   p.innerHTML=`<div class="sub" style="margin-top:2px">컬러</div><div class="thg">${THEMES.map((x,i)=>x.manga?"":`<button data-ti="${i}" aria-pressed="${x.name==t.name}"><i style="background-image:${bgURL(x,90,46)};color:${x.hc};text-shadow:1px 1px 0 ${x.hs},2px 2px 0 ${x.ink||"#2a1240"}">11.11</i><span>${x.name}</span></button>`).join("")}</div>
@@ -1592,6 +1658,23 @@ function ieRender(cv,maxSide){
 })();
 
 /* ================= 저장 (아이폰 사파리 포함) ================= */
+/* 저장 프로그램이 한글 줄바꿈을 화면과 다르게 계산하는 문제(글자가 창 밖으로 삐져나감) 방지:
+   화면에서 실제로 줄이 바뀐 자리를 글자 단위로 재서, 그 자리에 줄바꿈을 직접 박아 둔다 */
+function freezeLines(root){
+  const doc=root.ownerDocument,saved=[];
+  root.querySelectorAll(".it").forEach(el=>{saved.push([el,el.style.transform]);el.style.transform="none"}); /* 회전 때문에 높이가 어긋나지 않게 잠깐 풀기 */
+  const tw=doc.createTreeWalker(root,NodeFilter.SHOW_TEXT),nodes=[];while(tw.nextNode())nodes.push(tw.currentNode);
+  const jobs=[];
+  nodes.forEach(t=>{const s=t.nodeValue,pe=t.parentElement;if(!s.trim()||!pe)return;
+    const ws=doc.defaultView.getComputedStyle(pe).whiteSpace;if(/pre|nowrap/.test(ws))return;
+    const r=doc.createRange();let lines=[],line="",last=null;
+    for(let i=0;i<s.length;i++){r.setStart(t,i);r.setEnd(t,i+1);const rc=r.getClientRects();const top=rc.length?rc[0].top:null;
+      if(top!=null&&last!=null&&top-last>3){lines.push(line);line=""}if(top!=null)last=top;line+=s[i]}
+    lines.push(line);
+    if(lines.length>1)jobs.push([t,pe,lines.map(l=>l.replace(/\s+/g," ").trim()).filter(Boolean).join("\n")])});
+  jobs.forEach(([t,pe,v])=>{t.nodeValue=v;pe.style.whiteSpace="pre"});
+  saved.forEach(([el,tf])=>el.style.transform=tf);
+}
 let lastURL=null;
 $("sv").onclick=async()=>{
   const btn=$("sv"),html=btn.innerHTML;btn.disabled=true;btn.lastChild.textContent="만드는 중…";select(null);
@@ -1607,7 +1690,7 @@ $("sv").onclick=async()=>{
     await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
     const f=FMT[S.fmt],scale=1080/f.W;
     const cv=await html2canvas(P,{scale,backgroundColor:null,useCORS:true,logging:false,ignoreElements:el=>el.id=="sel",
-      onclone:d=>{const pw=d.getElementById("pw");pw.style.transform="none";d.getElementById("P").style.boxShadow="none"}});
+      onclone:d=>{const pw=d.getElementById("pw");pw.style.transform="none";d.getElementById("P").style.boxShadow="none";freezeLines(d.getElementById("P"))}});
     const blob=await new Promise(r=>cv.toBlob(r,"image/png"));
     const file=new File([blob],"빼빼로데이-1111.png",{type:"image/png"});
     if(lastURL)URL.revokeObjectURL(lastURL);lastURL=URL.createObjectURL(blob);
@@ -1693,8 +1776,8 @@ async function paneStore(){
   $("svExp").onclick=()=>{const blob=new Blob([JSON.stringify(projState())],{type:"application/json"}),u=URL.createObjectURL(blob),a=document.createElement("a");
     a.href=u;a.download=`빼빼로데이-작업-${new Date().toISOString().slice(0,10)}.json`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000)};
   $("svImp").onclick=()=>$("projIn").click();
-  $("rsEd").onclick=()=>{if(!confirm("스티커·글자·테마·판형을 처음 상태로 되돌릴까요? 되돌리기로 다시 살릴 수 있어요."))return;
-    S.th={...THEMES[0]};S.fmt="P";S.fh="dela";S.fb="gowun";const keep=H.st.slice(0,H.i+1);build();H.st=keep.concat(H.st);H.i=H.st.length-1;updUndo();toast("처음 상태로 되돌렸어요")};
+  $("rsEd").onclick=async()=>{if(!confirm("스티커·글자·테마·판형을 처음 상태로 되돌릴까요? 되돌리기로 다시 살릴 수 있어요."))return;
+    S.th={...THEMES[0]};S.fmt="P";S.fh="dela";S.fb="gowun";const keep=H.st.slice(0,H.i+1);await build();H.st=keep.concat(H.st);H.i=H.st.length-1;updUndo();toast("처음 상태로 되돌렸어요")};
   $("rsAll").onclick=()=>{if(confirm("입력 내용과 꾸민 것을 모두 지우고 처음 화면으로 갈까요? (보관한 작업은 남아요)")){resetAll();toast("모두 초기화했어요")}};
 }
 $("projIn").onchange=async e=>{const f=e.target.files[0];e.target.value="";if(!f)return;
