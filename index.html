@@ -163,6 +163,9 @@ svg{flex:none}
 .ib:disabled{opacity:.35;cursor:default}
 .ib.main{background:var(--ink);color:#fff;box-shadow:0 3px 0 var(--pink)}
 .ib .lbl{display:none}
+@media (max-width:420px){.etop .ttl small{display:none}.etop .ttl{font-size:15px}}
+.wbtn span{text-align:left;line-height:1.35}
+.wbtn small{font-size:12px}
 .stage{order:1;flex:1;min-height:0;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;touch-action:none}
 #pwo{position:relative;flex:none}
 #pw{position:absolute;left:0;top:0;transform-origin:0 0}
@@ -266,18 +269,21 @@ input[type=range]{width:100%;accent-color:var(--pink);height:24px}
 .P .msg{text-align:center;font:19px/1.2 'Pacifico','MsgKo','Gowun Dodum',cursive;white-space:pre;color:var(--mtc,var(--mtcT,#fff));--o:var(--oc,var(--ocT,var(--pink)));
   --w:var(--ow,2px);text-shadow:var(--w) var(--w) 0 var(--o),calc(var(--w)*-1) calc(var(--w)*-1) 0 var(--o),var(--w) calc(var(--w)*-1) 0 var(--o),calc(var(--w)*-1) var(--w) 0 var(--o),0 var(--w) 0 var(--o),0 calc(var(--w)*-1) 0 var(--o),var(--w) 0 0 var(--o),calc(var(--w)*-1) 0 0 var(--o),3px 5px 0 var(--ink)}
 /* 그림자는 CSS box-shadow 대신 진짜 요소(.shd)로 — 저장 프로그램이 회전된 요소의 box-shadow를 어긋나게 그려서 창 테두리가 깨져 보였음 */
-.P .shd{position:absolute;left:0;top:0;right:0;bottom:0;background:var(--ink);transform:translate(4px,5px);border-radius:7px}
+/* 그림자 판: transform 없이 위치값으로만 4px·5px 비켜 놓음 (회전된 창 안의 transform을 저장 프로그램이 잘못 계산함) */
+.P .shd{position:absolute;left:4px;top:5px;right:-4px;bottom:-5px;background:var(--ink);border-radius:7px}
 .P .w{width:122px;line-height:1.2}
 .P .w>.fr{position:relative;background:var(--win);border:2px solid var(--ink);border-radius:7px;overflow:hidden}
-.P .w .t{display:flex;justify-content:space-between;align-items:center;padding:3px 7px;background:var(--tb);color:#fff;font:400 10px var(--disp)}
+.P .w .t{border-radius:5px 5px 0 0;display:flex;justify-content:space-between;align-items:center;padding:3px 7px;background:var(--tb);color:#fff;font:400 10px var(--disp)}
 .P .w .t i{display:flex;gap:3px}.P .w .t i s{display:block;width:7px;height:7px;background:#fff;border-radius:2px}
 .P .w .b{padding:7px 8px 8px}
 .P .w.haspf .nm{padding-right:42px}
-.P .w .nm{font:400 17px/1.15 var(--fh);margin-bottom:5px;white-space:nowrap;word-break:keep-all;overflow-wrap:anywhere}
-.P .w ul{list-style:none;margin:0;padding:0}
-.P .w li{display:flex;align-items:center;gap:5px;font-size:11.5px;line-height:14px;padding:3px 0;word-break:keep-all;overflow-wrap:anywhere}
-.P .w li.sh{background:var(--acc);margin:0 -8px;padding:0 8px;color:var(--acct)}
-.P .w .tst{margin-top:5px;display:inline-block;font-size:10.5px;border:1.5px solid var(--ink);border-radius:99px;padding:0 7px;line-height:16px}
+.P .w .nm{font:400 17px/1.15 var(--fh);margin-bottom:5px;white-space:nowrap;overflow:hidden}
+.P .w ul{list-style:none;margin:0;padding:0;font-size:11.5px}
+.P .w li{display:flex;align-items:center;gap:5px;line-height:1.3;padding:3px 0;white-space:nowrap;overflow:hidden}
+.P .w li svg{flex:none}
+.P .w li .lt{white-space:nowrap}
+.P .w li.sh{background:var(--acc);margin:0 -8px;padding:3px 8px;color:var(--acct)}
+.P .w .tst{margin-top:5px;display:inline-block;font-size:10.5px;white-space:nowrap;max-width:100%;border:1.5px solid var(--ink);border-radius:99px;padding:0 7px;line-height:16px}
 .P .sc{width:108px;height:108px}
 .P .sc .shd{border-radius:50%}
 .P .sc>.fr{position:absolute;left:0;top:0;right:0;bottom:0;border-radius:50%;background:var(--acc);border:2px solid var(--ink);
@@ -288,8 +294,8 @@ input[type=range]{width:100%;accent-color:var(--pink);height:24px}
 .P .rw{width:122px;color:var(--rtc,var(--ink));font-size:11.5px;line-height:1.4}
 .P .rw .shd{border-radius:6px}
 .P .rw>.fr{position:relative;background:var(--rbg,#fff);border:2px solid var(--ink);border-radius:6px;overflow:hidden}
-.P .rw .t{background:var(--ink);color:#fff;font:400 10px var(--disp);padding:3px 7px;display:flex;justify-content:space-between;line-height:1.2}
-.P .rw p{margin:0;padding:7px 8px 4px;word-break:keep-all}
+.P .rw .t{border-radius:4px 4px 0 0;background:var(--ink);color:#fff;font:400 10px var(--disp);padding:3px 7px;display:flex;justify-content:space-between;line-height:1.2}
+.P .rw p{margin:0;padding:7px 8px 4px;white-space:pre;overflow:hidden}
 .P .rw em{display:block;width:40px;margin:2px auto 7px;text-align:center;font-style:normal;font-size:10px;border:1.5px solid var(--ink);border-radius:4px;background:var(--bubble);line-height:1.5;color:var(--ink)}
 .P .sign{background:var(--sbg,#fff);color:var(--stc,var(--ink));font:400 10.5px var(--fh);padding:5px 9px 4px;border:2px solid var(--ink);border-radius:5px;white-space:nowrap}
 .P .ld{height:20px;background:#fff;border:2px solid var(--ink);padding:2px}
@@ -394,6 +400,7 @@ input[type=range]{width:100%;accent-color:var(--pink);height:24px}
   <header class="etop">
     <button class="ib" id="bk" aria-label="입력 화면으로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg><span class="lbl">입력 화면</span></button>
     <div class="ttl">빼빼로데이<small id="fmtLbl"></small></div>
+    <button class="ib" id="rst" aria-label="초기화"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v5h5"/></svg><span class="lbl">초기화</span></button>
     <button class="ib" id="undo" aria-label="되돌리기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg><span class="lbl">되돌리기</span></button>
     <button class="ib" id="redo" aria-label="다시 하기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14l5-5-5-5"/><path d="M20 9H10a6 6 0 0 0 0 12h3"/></svg><span class="lbl">다시 하기</span></button>
     <button class="ib main" id="sv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11"/><path d="M7 10l5 5 5-5"/><path d="M5 20h14"/></svg>저장</button>
@@ -424,6 +431,19 @@ input[type=range]{width:100%;accent-color:var(--pink);height:24px}
       <div class="iectl" id="iectl"></div>
     </div>
     <div class="mfoot"><button class="mini sp" id="ieNew">다른 사진</button><button class="mini" id="ieC">취소</button><button class="mini dk" id="ieOk">적용</button></div>
+  </div>
+</div>
+
+<!-- 초기화 -->
+<div class="modal" id="rsm" role="dialog" aria-modal="true" aria-labelledby="rsT">
+  <div class="mbox" style="width:min(440px,100%)">
+    <div class="mhead"><span id="rsT">무엇을 초기화할까요?</span><button id="rsX" aria-label="닫기">×</button></div>
+    <div style="padding:14px;display:flex;flex-direction:column;gap:8px">
+      <button class="wbtn" data-rs="layout"><span><b style="font-weight:400">배치만 처음 자리로</b><br><small style="color:var(--soft)">옮기고 돌린 위치·크기만 되돌려요. 넣은 스티커·글자·색은 그대로.</small></span></button>
+      <button class="wbtn" data-rs="edit"><span><b style="font-weight:400">꾸민 것 전부 처음으로</b><br><small style="color:var(--soft)">스티커·글자·사진 스티커·색·폰트·테마·판형을 처음 상태로. 입력한 이름·과자는 그대로.</small></span></button>
+      <button class="wbtn warn" data-rs="all"><span><b style="font-weight:400">입력까지 전부 초기화</b><br><small>이름·과자·사진까지 지우고 첫 화면으로 (보관함의 작업은 남아요)</small></span></button>
+      <p class="hint" style="margin:4px 0 0;text-align:center">위 두 가지는 되돌리기로 다시 살릴 수 있어요.</p>
+    </div>
   </div>
 </div>
 
@@ -1120,10 +1140,10 @@ function add(html,o){
   P.insertBefore(el,$("sel"));apply(el);return el}
 function winBox(p,i){
   return `<div class="shd"></div><div class="fr"><div class="t"><span>${i?"YOU":"ME"}.txt</span><i><s></s><s></s></i></div><div class="b">
-   <div class="nm"><span>${esc(p.n)}</span></div><ul>${p.mode=="any"?`<li class="sh">${iconArt("smiley",18)}아무거나 다 좋아</li>`
-     :p.mode=="none"?`<li>${iconArt("mheart",18)}과자보다 너</li>`
-     :p.k.length?p.k.map(k=>`<li class="${S.sh.includes(k[0])?"sh":""}">${iconArt(iconFor(k),18)}${esc(k[1])}</li>`).join("")
-     :`<li>${iconArt("mthink",18)}최애 과자 찾는 중…</li>`}</ul>
+   <div class="nm"><span>${esc(p.n)}</span></div><ul>${p.mode=="any"?`<li class="sh">${iconArt("smiley",18)}<span class="lt">아무거나 다 좋아</span></li>`
+     :p.mode=="none"?`<li>${iconArt("mheart",18)}<span class="lt">과자보다 너</span></li>`
+     :p.k.length?p.k.map(k=>`<li class="${S.sh.includes(k[0])?"sh":""}">${iconArt(iconFor(k),18)}<span class="lt">${esc(k[1])}</span></li>`).join("")
+     :`<li>${iconArt("mthink",18)}<span class="lt">최애 과자 찾는 중…</span></li>`}</ul>
    ${p.v?`<span class="tst">${esc(p.v)} 파</span>`:""}</div></div>`;
 }
 const imgHTML=(id,w)=>`<img data-im src="${IMG.get(id).out}" style="width:${w}px" alt="">`;
@@ -1144,7 +1164,7 @@ async function build(){
   add(winBox(a,0),{cls:"w"+(a.ph?" haspf":""),key:"wA",z:5});
   add(winBox(b,1),{cls:"w"+(b.ph?" haspf":""),key:"wB",z:5});
   add(`<div class="shd"></div><div class="fr"><b class="ed">${S.sc}%</b><span>pair match</span></div>`,{cls:"sc",key:"sc",z:8,edit:true});
-  add(`<div class="shd"></div><div class="fr"><div class="t"><span>result.exe</span><span>×</span></div><p class="ed">${esc(S.tt)}</p><em>OK</em></div>`,{cls:"rw",key:"rw",z:7,edit:true});
+  add(`<div class="shd"></div><div class="fr"><div class="t"><span>result.exe</span><span>×</span></div><p class="ed">${esc(breakTT(S.tt))}</p><em>OK</em></div>`,{cls:"rw",key:"rw",z:7,edit:true});
   add(`<span class="ed">PRETTY PAIR AVE.</span>`,{cls:"sign",key:"sign",z:7,edit:true});
   add(`<i style="width:${S.sc}%"></i>`,{cls:"ld",key:"ld",z:6});
   add(`<span class="ed">LOADING ${S.sc}%</span>`,{cls:"ldt",key:"ldt",z:6,edit:true});
@@ -1154,11 +1174,32 @@ async function build(){
 /* 한 줄짜리 라벨이 너무 길면 글자를 줄여 정해진 폭에 맞춤 */
 function fitBox(key,maxW){const el=P.querySelector(`[data-key="${key}"]`);if(!el)return;const ed=el.querySelector(".ed");if(!ed||ed.dataset.man)return;
   ed.style.fontSize="";let fs=parseFloat(getComputedStyle(ed).fontSize);while(el.offsetWidth>maxW&&fs>8){fs-=.5;ed.style.fontSize=fs+"px"}}
-/* 이름이 길면 한 줄에 맞게 글자를 줄이고, 그래도 넘치면 줄바꿈 */
-function fitNames(){P.querySelectorAll(".w .nm").forEach(nm=>{if(nm.dataset.man)return;const sp=nm.firstElementChild;if(!sp)return;
-  nm.style.whiteSpace="nowrap";let fs=17;nm.style.fontSize=fs+"px";const cs=getComputedStyle(nm),avail=nm.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);
-  while(sp.offsetWidth>avail+.5&&fs>11){fs-=.5;nm.style.fontSize=fs+"px"}
-  if(sp.offsetWidth>avail+.5){nm.style.whiteSpace="normal";nm.style.fontSize="13px"}})}
+/* 결과 문구는 정해진 자리(쉼표, 가운데 띄어쓰기)에서만 두 줄로 */
+function breakTT(s){if(s.length<=10||s.includes("\n"))return s;const c=s.indexOf(", ");if(c>2)return s.slice(0,c+1)+"\n"+s.slice(c+2);
+  const sp=[...s].map((ch,i)=>ch==" "?i:-1).filter(i=>i>0);if(!sp.length)return s;const mid=s.length/2,i=sp.reduce((a,b)=>Math.abs(b-mid)<Math.abs(a-mid)?b:a);return s.slice(0,i)+"\n"+s.slice(i+1)}
+/* 창 안 글자는 무조건 한 줄: 칸보다 길면 그 줄 글자만 작아짐 (정한 크기가 최대값) */
+function fitWin(el){const d=el.dataset;
+  /* 너비를 직접 정하지 않았으면, 글자가 너무 작아지기 전에 창을 조금(최대 160px) 넓힌다 */
+  if(el.classList.contains("w")&&!d.manw){for(let w=122;w<=160;w+=6){el.style.width=w+"px";fitOnce(el);
+    const nf=parseFloat(el.querySelector(".nm")?.style.fontSize||17),lf=parseFloat(el.querySelector("ul")?.style.fontSize||11.5);
+    if(nf>=Math.min(13,+(d.nmfs||17))&&lf>=Math.min(10,+(d.lifs||11.5)))return}return}
+  fitOnce(el)}
+function fitOnce(el){const d=el.dataset;
+  if(el.classList.contains("w")){
+    const nm=el.querySelector(".nm"),sp=nm&&nm.firstElementChild;
+    if(sp){let fs=+(d.nmfs||17);nm.style.fontSize=fs+"px";const cs=getComputedStyle(nm),av=nm.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);
+      while(sp.offsetWidth>av+.5&&fs>6){fs-=.5;nm.style.fontSize=fs+"px"}}
+    const ul=el.querySelector("ul"),tst=el.querySelector(".tst");
+    if(ul){let fs=+(d.lifs||11.5);const set=v=>{ul.style.fontSize=v+"px";if(tst)tst.style.fontSize=Math.max(6,v-1)+"px"};set(fs);
+      const over=()=>[...ul.querySelectorAll("li")].some(li=>li.scrollWidth>li.clientWidth+.5)||(tst&&tst.scrollWidth>tst.clientWidth+.5);
+      while(over()&&fs>6){fs-=.5;set(fs)}}
+  }
+  if(el.classList.contains("rw")){const p=el.querySelector("p.ed");if(p){let fs=+(p.dataset.fsb||11.5);p.style.fontSize=fs+"px";
+    while(p.scrollWidth>p.clientWidth+.5&&fs>6){fs-=.5;p.style.fontSize=fs+"px"}}}
+}
+function fitWindows(){P.querySelectorAll(".it.w,.it.rw").forEach(fitWin)}
+const fitNames=fitWindows;
+document.fonts&&document.fonts.addEventListener("loadingdone",()=>{if($("ed").classList.contains("on")){fitWindows();place()}});
 /* 회전·크기까지 반영한 실제 상자를 포스터 안으로 */
 function boxOf(el){const r=el.getBoundingClientRect(),p=P.getBoundingClientRect(),b=2;
   return {x1:(r.left-p.left)/k-b,y1:(r.top-p.top)/k-b,x2:(r.right-p.left)/k-b,y2:(r.bottom-p.top)/k-b}}
@@ -1409,7 +1450,7 @@ const fontCss=id=>{const f=FONTS.find(x=>x.id==id)||FONTS[0];return `${f.f},'Gow
 const fontName=id=>(FONTS.find(x=>x.id==id)||{n:"기본"}).n;
 function applyFonts(){P.style.setProperty("--fh",fontCss(S.fh));P.style.setProperty("--fb",fontCss(S.fb))}
 function paneFont(){
-  const p=pane("ft"),txt=cur&&cur.dataset.edit;
+  const p=pane("ft"),txt=cur&&(cur.dataset.edit||cur.classList.contains("w"));
   if(!p.dataset.ok){p.dataset.ok=1;p.innerHTML=`<div class="tgt" id="tgt" role="group" aria-label="폰트 바꿀 곳"></div><div class="fonts" id="fonts"></div>
     <div class="upl"><label>폰트 파일 불러오기<input type="file" id="fup" accept=".ttf,.otf,.woff,.woff2"></label><span>웹폰트가 없는 폰트는 내려받은 파일을 불러오면 이 기기에서 쓸 수 있어요.</span></div>`;
     $("fup").onchange=async e=>{const file=e.target.files[0];if(!file)return;
@@ -1427,8 +1468,9 @@ function paneFont(){
   $("fonts").querySelectorAll("button").forEach(b=>b.onclick=async()=>{
     const id=b.dataset.f,css=fontCss(id);
     try{await document.fonts.load(`24px ${FONTS.find(f=>f.id==id).f}`,"가나다11.11PAIR"+(P.textContent||"").slice(0,200))}catch(e){}
-    if(cur&&cur.dataset.edit){const ed=cur.querySelector(".ed")||cur;cur.style.fontFamily="";ed.style.fontFamily=css;cur.dataset.font=id}
-    else{S[S.tgt]=id;applyFonts();fitNames()}
+    if(cur&&cur.classList.contains("w")){cur.style.setProperty("--fh",css);cur.style.setProperty("--fb",css);cur.dataset.font=id;fitWin(cur)}
+    else if(cur&&cur.dataset.edit){const ed=cur.querySelector(".ed")||cur;cur.style.fontFamily="";ed.style.fontFamily=css;cur.dataset.font=id;fitWin(cur)}
+    else{S[S.tgt]=id;applyFonts();fitWindows()}
     place();commit();paneFont();renderProps()});
 }
 
@@ -1493,6 +1535,11 @@ function renderProps(){
      ${tyR("tLh","행간",70,220,Math.round((parseFloat(ed.style.lineHeight)||1.15)*100),"%")}
      ${kind=="msg"||kind=="pop"?tyR("tOw","외곽선",0,6,Math.round(parseFloat(cur.style.getPropertyValue("--ow"))||2),"px"):""}
      <button class="mini" id="tReset" style="margin-top:2px">글자 모양 처음으로</button>`:""}
+   ${kind=="w"||kind=="rw"?`<div class="sub">창 크기 · 글자 크기</div>
+     ${tyR("wW","창 너비",90,260,Math.round(cur.offsetWidth),"px")}
+     ${kind=="w"?tyR("wN","이름 글자",8,32,+(d.nmfs||17),"px")+tyR("wL","목록 글자",7,20,+(d.lifs||11.5),"px"):""}
+     <p class="hint" style="margin:2px 0 0">창 안 글자는 항상 한 줄이에요. 칸보다 길면 그 줄만 자동으로 작아지니, 크게 쓰고 싶으면 창 너비를 넓혀 주세요.</p>
+     ${kind=="w"?`<button class="fpick" id="wFont" style="margin-top:6px"><span>이 창 폰트: ${esc(fontName(d.font||S.fh))}</span><span>바꾸기 ›</span></button>`:""}`:""}
    ${d.img?`<button class="wbtn dk" id="pIe" style="margin-top:4px">사진 다시 편집</button>`:""}
    ${cols.length?`<div class="sub">색 <button class="mini" id="pCr" style="padding:2px 8px;font-size:11px">기본색으로</button></div><div class="cs-row">${cols.map(c=>`<button class="cs" data-cv="${c[1]}" style="--c:${curColor(cur,c[1])}"><i></i>${c[0]}</button>`).join("")}</div>`:""}
    <div class="sub">크기 · 각도 · 투명도</div>
@@ -1510,11 +1557,14 @@ function renderProps(){
       if(t=="b")st.fontWeight=st.fontWeight=="700"?"":"700";if(t=="i")st.fontStyle=st.fontStyle=="italic"?"":"italic";if(t=="u")st.textDecoration=st.textDecoration=="underline"?"":"underline";
       place();commit();renderProps()});
     box.querySelectorAll("[data-al]").forEach(b=>b.onclick=()=>{cur.style.textAlign=b.dataset.al;place();commit();renderProps()});
-    const ty=(id,fn)=>{const r=$(id);r.oninput=()=>{fn(+r.value);r.nextElementSibling.textContent=r.value+r.dataset.u;apply(cur);place()};r.onchange=()=>commit()};
-    ty("tFs",v=>{ed.style.fontSize=v+"px";ed.dataset.man=1});ty("tSx",v=>cur.dataset.sx=v/100);ty("tLs",v=>ed.style.letterSpacing=v?(v/100)+"em":"");ty("tLh",v=>ed.style.lineHeight=v/100);
+    const ty=(id,fn)=>{const r=$(id);r.oninput=()=>{fn(+r.value);r.nextElementSibling.textContent=r.value+r.dataset.u;fitWin(cur);apply(cur);place()};r.onchange=()=>commit()};
+    ty("tFs",v=>{ed.style.fontSize=v+"px";ed.dataset.man=1;ed.dataset.fsb=v;fitWin(cur)});ty("tSx",v=>cur.dataset.sx=v/100);ty("tLs",v=>ed.style.letterSpacing=v?(v/100)+"em":"");ty("tLh",v=>ed.style.lineHeight=v/100);
     if($("tOw"))ty("tOw",v=>cur.style.setProperty("--ow",v+"px"));
-    $("tReset").onclick=()=>{["fontSize","letterSpacing","lineHeight","fontWeight","fontStyle","textDecoration"].forEach(p=>ed.style[p]="");delete ed.dataset.man;cur.style.removeProperty("--ow");cur.style.textAlign="";delete cur.dataset.sx;
+    $("tReset").onclick=()=>{["fontSize","letterSpacing","lineHeight","fontWeight","fontStyle","textDecoration"].forEach(p=>ed.style[p]="");delete ed.dataset.man;delete ed.dataset.fsb;cur.style.removeProperty("--ow");fitWin(cur);cur.style.textAlign="";delete cur.dataset.sx;
       if(cur.dataset.key=="msg")fitMsg();apply(cur);place();commit();renderProps()}}
+  if(kind=="w"||kind=="rw"){const wr=(id,fn)=>{const r=$(id);if(!r)return;r.oninput=()=>{fn(+r.value);r.nextElementSibling.textContent=r.value+"px";fitWin(cur);place()};r.onchange=()=>commit()};
+    wr("wW",v=>{cur.style.width=v+"px";cur.dataset.manw=1});wr("wN",v=>cur.dataset.nmfs=v);wr("wL",v=>cur.dataset.lifs=v);
+    if($("wFont"))$("wFont").onclick=()=>setTab("ft",true)}
   if(d.img)$("pIe").onclick=()=>{const el=cur,o=IMG.get(el.dataset.img);
     openIE({src:o.src,st:o.st,title:"사진 다시 편집"},(out,st)=>{const id="im"+(++imgN);IMG.set(id,{src:o.src,st,out});
       const w=el.querySelector("img").style.width;el.innerHTML=imgHTML(id,parseFloat(w)||110);el.dataset.img=id;select(el);commit()})};
@@ -1786,12 +1836,21 @@ async function paneStore(){
     a.href=u;a.download=`빼빼로데이-작업-${new Date().toISOString().slice(0,10)}.json`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000)};
   $("svImp").onclick=()=>$("projIn").click();
   $("rsEd").onclick=async()=>{if(!confirm("스티커·글자·테마·판형을 처음 상태로 되돌릴까요? 되돌리기로 다시 살릴 수 있어요."))return;
-    S.th={...THEMES[0]};S.fmt="P";S.fh="dela";S.fb="gowun";const keep=H.st.slice(0,H.i+1);await build();H.st=keep.concat(H.st);H.i=H.st.length-1;updUndo();toast("처음 상태로 되돌렸어요")};
+    await resetEdits();toast("처음 상태로 되돌렸어요")};
   $("rsAll").onclick=()=>{if(confirm("입력 내용과 꾸민 것을 모두 지우고 처음 화면으로 갈까요? (보관한 작업은 남아요)")){resetAll();toast("모두 초기화했어요")}};
 }
 $("projIn").onchange=async e=>{const f=e.target.files[0];e.target.value="";if(!f)return;
   try{const o=JSON.parse(await f.text());if(!o.form)throw 0;loading=true;loadProj(o);loading=false;saveSoon();toast("작업 파일을 불러왔어요")}
   catch(err){loading=false;alert("작업 파일을 읽지 못했어요. 이 페이지에서 내보낸 .json 파일인지 확인해 주세요.")}};
+/* 편집기 상단 초기화 버튼 */
+async function resetEdits(){S.th={...THEMES[0]};S.fmt="P";S.fh="dela";S.fb="gowun";const keep=H.st.slice(0,H.i+1);await build();H.st=keep.concat(H.st);H.i=H.st.length-1;updUndo();refreshPane()}
+$("rst").onclick=()=>$("rsm").classList.add("on");
+$("rsX").onclick=()=>$("rsm").classList.remove("on");
+$("rsm").onclick=e=>{if(e.target.id=="rsm")$("rsm").classList.remove("on")};
+document.querySelectorAll("[data-rs]").forEach(b=>b.onclick=async()=>{const k=b.dataset.rs;$("rsm").classList.remove("on");
+  if(k=="layout"){P.querySelectorAll(".it[data-key]").forEach(el=>{el.style.width=el.dataset.key=="ld"?"":el.style.width});layout();select(null);commit();toast("배치를 처음 자리로 되돌렸어요")}
+  if(k=="edit"){await resetEdits();toast("꾸민 것을 처음 상태로 되돌렸어요")}
+  if(k=="all"){if(confirm("이름·과자·사진까지 모두 지울까요?")){resetAll();toast("모두 초기화했어요")}}});
 showResume();
 </script>
 </body></html>
